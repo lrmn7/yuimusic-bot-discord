@@ -1,0 +1,56 @@
+{
+  "name": "yuimusic",
+  "version": "3.2.0",
+  "description": "yuimusic is a music bot for Discord, written in JavaScript using the Discord.js, Typescript, Shoukaku (Lavalink) library.",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "npm run start:bot",
+    "start:bot": "npm run build && node --enable-source-maps dist/index.js",
+    "build": "tsc --project tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lrmn7/yuimusic.git"
+  },
+  "keywords": [
+    "discord",
+    "music",
+    "bot",
+    "lavalink",
+    "shoukaku",
+    "yuimusic",
+    "typescript",
+    "prisma"
+  ],
+  "author": "lrmn",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/lrmn7/yuimusic/issues"
+  },
+  "homepage": "https://github.com/lrmn7/yuimusic#readme",
+  "devDependencies": {
+    "@types/node": "^18.14.5",
+    "@types/signale": "^1.4.4",
+    "prisma": "^4.11.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.11.0",
+    "discord.js": "^14.9.0",
+    "dotenv": "^16.0.3",
+    "mongodb": "^5.6.0",
+    "shoukaku": "^3.3.1",
+    "signale": "^1.4.0"
+  },
+  "signale": {
+    "displayScope": true,
+    "displayBadge": true,
+    "displayDate": true,
+    "displayFilename": true,
+    "displayLabel": true,
+    "displayTimestamp": true,
+    "underlineLabel": true
+  }
+}

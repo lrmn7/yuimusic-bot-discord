@@ -1,0 +1,70 @@
+version: "3.8"
+services:
+  mongodb:
+    container_name: yuimusic-mongodb
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongoadmin
+      MONGO_INITDB_ROOT_PASSWORD: mongopassword
+    restart: on-failure
+    volumes:
+      - mongodb_data:/data/db
+
+  yuimusic:
+    container_name: yuimusic-yuimusic
+    image: fredboat/yuimusic:dev
+    environment:
+      SERVER_PORT: 2333
+      SERVER_ADDRESS: 0.0.0.0
+      yuimusic_SERVER_PASSWORD: "youshallnotpass"
+      yuimusic_SERVER_SOURCES_YOUTUBE: 'true'
+      yuimusic_SERVER_SOURCES_BANDCAMP: 'true'
+      yuimusic_SERVER_SOURCES_SOUNDCLOUD: 'true'
+      yuimusic_SERVER_SOURCES_TWITCH: 'true'
+      yuimusic_SERVER_SOURCES_VIMEO: 'true'
+      yuimusic_SERVER_SOURCES_HTTP: 'true'
+      yuimusic_SERVER_SOURCES_LOCAL: 'false'
+      yuimusic_SERVER_BUFFER_DURATION_MS: 400
+      yuimusic_SERVER_FRAME_BUFFER_DURATIONS_MS: 5000
+      yuimusic_SERVER_TRACK_STRUCK_THRESHOLD_MS: 10000
+      yuimusic_SERVER_YOUTUBE_PLAYLIST_LOAD_LIMIT: 6
+      yuimusic_SERVER_PLAYER_UPDATE_INTERVAL: 5
+      yuimusic_SERVER_YOUTUBE_SEARCH_ENABLED: 'true'
+      yuimusic_SERVER_SOUNDCLOUD_SEARCH_ENABLED: 'true'
+      #yuimusic_SERVER_YOUTUBE_CONFIG_EMAIL:
+      #yuimusic_SERVER_YOUTUBE_CONFIG_PASSWORD:
+      yuimusic_SERVER_SENTRY_DSN: ""
+    restart: on-failure
+
+  yuimusic:
+    container_name: yuimusic
+    image: ghcr.io/brblacky/yuimusic:main
+    environment:
+     TOKEN: "your bot token" # Your bot token
+     PREFIX: "your bot prefix" # Your bot prefix
+     OWNER_IDS: "your id" # Your id
+     CLIENT_ID: "your bot id" # Your bot id
+     GUILD_ID: "" # Your server Id if you want to use the for single server
+     PRODUCTION: "true" # true for production 
+     SEARCH_ENGINE: "ytsearch" # ytsearch, scsearch or ytmsearch
+     MAX_PLAYLIST_SIZE: "100" # Max playlist size
+     MAX_QUEUE_SIZE: "100" # Max queue size
+     DATABASE_URL: "mongodb://mongoadmin:mongopassword@db:27017" # Your mongodb url
+     yuimusic_URL: "localhost:2333" # Your yuimusic url
+     yuimusic_AUTH: "youshallnotpass" # Your yuimusic password
+     yuimusic_NAME: "Blacky" # Your yuimusic name
+     yuimusic_SECURE: "false" # true if you are using https
+    restart: on-failure
+    depends_on:
+      - yuimusic
+      - mongodb
+    links:
+      - mongodb:db
+      - yuimusic
+
+volumes:
+  mongodb_data:
+
+networks:
+  default:
+    name: net-yuimusic
