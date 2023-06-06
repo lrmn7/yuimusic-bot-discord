@@ -106,7 +106,7 @@ Before starting with the installation, you need to have the following:
 1. Clone the Lavamusic repository:
   
   ```bash
-  git clone  https://github.com/lrmn7/yuimusic.git
+  git clone  https://github.com/lrmn7/yuimusic-bot-discord.git
 ```
 
 2. change the directory to Yuimusic
